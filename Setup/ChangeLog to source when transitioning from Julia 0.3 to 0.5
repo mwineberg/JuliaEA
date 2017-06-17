@@ -1,0 +1,23 @@
+Removed Aux - VectorComparisons so it wouldn't conflict with any extension to Base: <, <=, == etc. from other packages (being safe)
+Pulled import Base: declaration into one file instead of it being scattered throughout
+Changed some fn_name () to fn_name(); Reason: change in language specification (more strict)
+Changed Union(type,type) to Union{type,type}  Reason: change in type reasoning operators/function usage
+success(opt::OptimalMembers) -> goodenough(opt::OptimalMembers) in "Population - OptimalMembers"
+success(popn::Population) -> goodenough(popn::Population) in "Population"
+if success(current_popn) break end -> if goodenough(current_popn) break end in "GenerationalEA"
+needed to add "StatsBase" package to use various methods in it in "Selection - *"
+Changed rank() to ranked() to avoid name conflict with other packages (to be safe) in "Selection -Truncation and Elitism"
+Changed count() to mutatecount() to avoid name conflict with other packages (to be safe) in "Reproduction - Mutation"
+Changed ? < : > to ? (<) : (>) in "Selection - Tournament"
+Changed FloatingPoint to Real in "Reproduction - *" and "EA *"
+Changed count() to modificationcount() in "EA parameters" which reflects within "EA counts"
+Changed XoverCounts to CrossoverCounts in "EA counts"
+      - not sure why previously compiled
+      - probably because I changed the name from Xover to Crossover where the former type was defined in the REPL environment
+      - still not sure why it never got restarted during testing
+Renamed "AbstractTypes - Encoding Subtypes" as "Encoding - Abstract Subtype" and moved it from Setup to Encoding
+Added Common Accessor Methods to Encoding and FixedLengthEncoding in "Encoding - Abstract Subtype"
+Added Constructors where chr_length has a default of 0 to "Encoding - Simple Genes"
+Modified FixedLengthChromosomes() constructor in "Population - Chromosomes" to use new encoding accessor methods instead of directly calling the field name
+Added FixedLengthChromosomes!() that sets the chr_length in the encoding object and then creates a population of chromosomes
+Modified "Debugging Tests" to test out new functionality
